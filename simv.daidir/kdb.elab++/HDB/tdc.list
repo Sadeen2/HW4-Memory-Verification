@@ -1,5 +1,0 @@
-mem_if.sv
-mem_pkg.sv
-my_mem.sv
-test.sv
-top.sv
