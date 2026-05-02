@@ -13,3 +13,7 @@ This project implements a SystemVerilog verification environment for a synchrono
 
 ## Simulation Result
 All transactions passed successfully with zero errors.
+
+## Waveform Result
+
+![Waveform](waveform_screenshot.png)
