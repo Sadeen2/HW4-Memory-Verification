@@ -1,0 +1,385 @@
+Command: /home/st62/HW4/simv -sml=verdi +UVM_VERDI_TRACE=UVM_AWARE +fsdb+gate=off -ucli2Proc -ucli -l /home/st62/HW4/verdiLog/sim.log
+Chronologic VCS simulator copyright 1991-2022
+Contains Synopsys proprietary information.
+Compiler version T-2022.06-SP2_Full64; Runtime version T-2022.06-SP2_Full64;  May  2 15:11 2026
+
+ucli% synUtils::getArch
+linux64
+ucli% loaddl -simv /usr/synopsys/verdi/T-2022.06-SP2/share/PLI/VCS/LINUXAMD64/libnovas.so LoadFSDBDumpCmd;LoadFSDBDumpCmd
+LoadFSDBDumpCmd success
+ucli% config ckptfsdbcheck off;config endofsim noexit;config onfail {enable all};config followactivescope on;catch {setUcliVerdiConnected};set watch::resultTagsForVerdiBP {<ucli_break_bp_status_begin> <ucli_break_bp_status_end>};set ucliCore::support_restore_through_stask_in_verdi 1;cbug::config pretty_print auto;fsdbDumpfile {/home/st62/HW4/inter.fsdb} ;fsdbDumpflush ; 
+*Verdi* Loading libsscore_vcs202206.so
+FSDB Dumper for VCS, Release Verdi_T-2022.06-SP2, Linux x86_64/64bit, 11/22/2022
+(C) 1996 - 2022 by Synopsys, Inc.
+*Verdi* : Create FSDB file '/home/st62/HW4/inter.fsdb'
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+ucli% synEnv::hasFataled
+0
+ucli% ucliCore::getToolPID
+31013
+ucli% sps_interactive
+*Verdi* : Enable RPC Server(31013)
+
+ucli% ucliCore::getToolPID
+31013
+ucli% ucliCore::getToolPID
+31013
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% puts $ucliCore::nativeUcliMode
+0
+
+ucli% ucliCore::getToolTopPID
+31013
+ucli% pid
+31025
+ucli% synUtils::sendTool -active {_icl_createSharedMemory /tmp/vcs_dve_general.st62.31013 }
+
+ucli% if { [info vars watch::vcbp_str_len_limit_of_get_value] != ""} {set watch::vcbp_str_len_limit_of_get_value 1024}
+1024
+ucli% info command stateVerdiChangeCB
+
+ucli% proc stateVerdiChangeCB args { if {$ucliGUI::state eq "terminated"} {puts "\n<VERDI_Terminated>\n";catch {setVerdiSimTerminated}}}
+
+ucli% trace variable ucliGUI::state wu stateVerdiChangeCB
+
+ucli% if {[catch {rename synopsys::restore verdiHack::restore} ]} {puts "0"}
+
+ucli% proc synopsys::restore {args} { verdiHack::restore $args; puts "\n<VERDI_RESTORE>\n"}
+
+ucli% if {[catch {rename quit verdiHack::quit} ]} {puts "0"}
+
+ucli% proc quit {args} { if {[string length $args] == 0} { verdiHack::quit; } elseif {([string equal "-h" $args] == 1)||([string equal "-he" $args] == 1)||([string equal "-hel" $args] == 1)||([string equal "-help" $args] == 1)} { puts "\n quit           # Exit the simulation.\n \[-noprompt\]        (Exit the simulation and Verdi.)\n"} elseif {([string equal "-n" $args] == 1)||([string equal "-no" $args] == 1)||([string equal "-nop" $args] == 1)||([string equal "-nopr" $args] == 1)||([string equal "-nopro" $args] == 1)||([string equal "-noprom" $args] == 1)||([string equal "-nopromp" $args] == 1)||([string equal "-noprompt" $args] == 1)} { puts "\nVERDI_EXIT_N\n" } else { verdiHack::quit $args; } }
+
+ucli% if {[catch {rename exit verdiHack::exit} ]} {puts "0"}
+
+ucli% proc exit {args} { if {[string length $args] == 0} { verdiHack::exit; } elseif {([string equal "-h" $args] == 1)||([string equal "-he" $args] == 1)||([string equal "-hel" $args] == 1)||([string equal "-help" $args] == 1)} { puts "\n exit           # Exit the simulation.\n \[-noprompt\]        (Exit the simulation and Verdi.)\n"} elseif {([string equal "-n" $args] == 1)||([string equal "-no" $args] == 1)||([string equal "-nop" $args] == 1)||([string equal "-nopr" $args] == 1)||([string equal "-nopro" $args] == 1)||([string equal "-noprom" $args] == 1)||([string equal "-nopromp" $args] == 1)||([string equal "-noprompt" $args] == 1)} { puts "\nVERDI_EXIT_N\n" } else { verdiHack::exit $args; } }
+
+ucli% proc checkpoint::beforeRecreate {} { sps_interactive }
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% save::getUserdefinedProcs
+::stateVerdiChangeCB ::LoadFSDBDumpCmd
+ucli% info procs
+ipi_get_str fsdbDumpMDAByFile fsdbDumpMDA echo fsdbDumpMemNow fsdbAutoSwitchDumpfile unknown sps_interactive auto_import stat fsdbDumpfile setenv auto_execok pkg_mkIndex stateVerdiChangeCB fsdbDumpSingle proc_body ipi_begin fsdbDumpoff getenv fsdbDumplimit fsdbDumpPattern ipi_handle ipi_get_prop fsdbDumpvarsByFile fsdbDumpMDAInScope lminus ipi_sim_get ls auto_load_index proc_args fsdbAddRuntimeSignal fsdbDumpSC print_message_info ridbDump fsdbDumpSVAoff fsdbSuppress fsdbDumpvars help fsdbDumpMDAOnChange ipi_control auto_qualify fsdbDumpMem tclPkgUnknown printenv ipi_handle_by_name helpdoc fsdbDumpMemInScope fsdbDumpFinish is_true fsdbDumpon sh fsdbQueryInfo LoadFSDBDumpCmd fsdbDumpPSL fsdbDumpSVA ipi_end wrapperSpecmanSn fsdbDumpSVAon fsdbDumpClassObjectByFile is_false auto_load fsdbDumpPSLon ipi_get_int64 fsdbSubstituteHier ipi_get_value ipi_iterate exit fsdbDumpMemInFile tclLog fsdbDumpflush get_unix_variable mem_debug ipi_scan fsdbDumpPSLoff fsdbDumpClassObject fsdbDumpvarsToFile set_unix_variable bgerror fsdbDumpStrength add_group fsdbSwitchDumpfile source add_wave ipi_set_prop unsetenv fsdbDumpvarsES readline fsdbDisplay ipi_handle_free set_group ipi_get quit define_proc_attributes tclPkgSetup fsdbDumpMDANow ipi_init_play_tcl fsdbDumpIO
+ucli% info commands
+ipi_get_str cchange subst fsdbDumpMDAByFile pwd cshow guiSource fsdbDumpMDA echo fsdbDumpMemNow fsdbAutoSwitchDumpfile ucliConnectToSharedMem unknown ucliIsScriptPauseByVerdi lrange sps_interactive auto_import setVerdiSimTerminated coverage case stat fsdbDumpfile break setenv dump auto_execok msglog linsert pkg_mkIndex dumplist catch stateVerdiChangeCB mpformat fsdbDumpSingle if join detach_sim halt proc_body abortScriptAfterDetachVerdi report_violations which lp_show ipi_begin pause dve_help fsdbDumpoff format getenv listing fsdbDumplimit package binary trace ctimeout onbreak after flush fsdbDumpPattern step restore ipi_handle power continue get_command_option_values force try foreach ipi_get_prop fsdbDumpvarsByFile lrepeat tailcall unset fsdbDumpMDAInScope lminus ipi_sim_get interp write_app_var lindex stack yield ls runAfterDetachVerdi eof saif list printvar create_command_group keysFileChangeCB virtual auto_load_index checkpoint proc_args finish fsdbAddRuntimeSignal cgettimeout sexpr lsearch fblocked fsdbDumpSC fanin lappend print_message_info proc cextract ridbDump writelist get_defined_commands cdump fsdbDumpSVAoff fsdbSuppress man set_sig_vas_in_waiting_input fconfigure fsdbDumpvars help fsdbDumpMDAOnChange ipi_control switch auto_qualify fsdbDumpMem mpexpr status tclPkgUnknown close printenv ipi_handle_by_name helpdoc thread lreverse set read fsdbDumpMemInScope initAttachableFile unalias fsdbDumpFinish setVerdiAttachable seek while set_cle_options is_true set_message_info writeKeyLog cbug fsdbDumpon find_forces yieldto sh start_verdi load fsdbQueryInfo memory sn vcsExecFuncInSharedObject cenable history puts gdb loadSharedObject tblog assertion resume _synopsys_cci_unalias socket tell open get_message_ids cadd exec pid stop LoadFSDBDumpCmd unloadSharedObject redirect fsdbDumpPSL throw fsdbDumpSVA ipi_end return ace wrapperSpecmanSn error fsdbDumpSVAon split fsdbDumpClassObjectByFile is_false array ucliAttachedByVerdi vbus get lreplace concat coroutine fcopy update parse_proc_arguments report_app_var run search setUcliVerdiStatus for append auto_load fsdbDumpPSLon ucliLaunchVerdi alias logFileChangeCB scan setUcliVerdiConnected apply abort set_current_command_mode release zlib chan loads _spw_define_proc_attributes ipi_get_int64 onerror print_suppressed_messages scope fileevent fsdbSubstituteHier inputFileChangeCB regexp resultTagsForVerdiCB set_app_var ipi_get_value cdelete upvar ipi_iterate save encoding onfail exit fsdbDumpMemInFile incr tclLog fsdbDumpflush get_message_info get_unix_variable show senv glob mem_debug ipi_scan GUIsource config fsdbDumpPSLoff time eval lassign fsdbDumpClassObject gets fsdbDumpvarsToFile tcl_exit set_unix_variable restart start change llength variable constraints xprop bgerror fsdbDumpStrength call clock info apropos add_group fsdbSwitchDumpfile ucliDetachVerdi source GUI_tcl_shell_puts global tcheck initreg add_wave report_timing ipi_set_prop next drivers cd file lmap unload namespace loaddl unsetenv get_app_var fsdbDumpvarsES suppress_message vwait dict readline fsdbDisplay uplevel ipi_handle_free date set_group lset rename ipi_get quit sh_list_key_bindings do unsuppress_message define_proc_attributes error_info tclPkgSetup expr printPromptStr regsub onCheckpointCB csave fsdbDumpMDANow ipi_init_play_tcl lsort fsdbDumpIO doFileChangeCB _synopsys_cci_alias writeHistoryLog cdisable string
+ucli% set ucliCore::resultTagsForVerdi [list <?special_verdi_begin?> <?special_verdi_end?>]
+<?special_verdi_begin?> <?special_verdi_end?>
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% if {[catch {get uvm_pkg.UVM_VERSION_STRING} result] == 0} {puts $result}
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpflush 
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+ucli% senv
+activeDomain: Verilog
+activeFile: mem_pkg.sv
+activeFrame: -1
+activeLine: 1
+activeScope: mem_pkg
+activeThread: 0
+endCol: 0
+file: mem_pkg.sv
+frame: -1
+fsdbFilename: 
+hasTB: 1
+inputFilename: 
+keyFilename: ucli.key
+line: 1
+logFilename: /home/st62/HW4/verdiLog/sim.log
+macroIndex: -1
+macroOffset: -1
+pid: 31013
+scope: mem_pkg
+startCol: 0
+state: stopped
+thread: 0
+time: 0
+timePrecision: 1 ps
+vcdFilename: 
+vpdFilename:
+ucli% synUtils::resolveSourceFilename mem_pkg.sv
+mem_pkg.sv
+ucli% puts $::ucliCore::cbug_active
+0
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% checkpoint -list -all
+There are no checkpoints present.
+ucli% stop
+No stop points are set
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpvars 0 "top.clk"  +all +trace_process
+*Verdi* : Dumping the signal (top.clk).
+
+ucli% fsdbDumpflush 
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpvars 1 "top.mem_bus"  +all +trace_process;fsdbDumpflush 
+*Verdi* : Begin traversing the scope (top.mem_bus), layer (1).
+*Verdi* : Enable +trace_process and +all dumping.
+*Verdi* : End of traversing.
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% run
+<slp!&*()_+>
+[250000] Generated: addr=a13c data_in=7d expected=7d
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=78f7 data_in=a6 expected=a6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=a215 data_in=7d expected=7d
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=ccaa data_in=c4 expected=1c4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=4a88 data_in=f1 expected=1f1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=db8c data_in=1a expected=11a
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=7ba2 data_in=f0 expected=f0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=cc12 data_in=f4 expected=1f4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=8088 data_in=1 expected=101
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=5ad9 data_in=4f expected=14f
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=5359 data_in=43 expected=143
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=e6fd data_in=ea expected=1ea
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=c4e1 data_in=97 expected=197
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=1499 data_in=49 expected=149
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=631a data_in=ce expected=1ce
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=1a5 data_in=17 expected=17
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=7a96 data_in=e expected=10e
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=f262 data_in=88 expected=88
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=4a26 data_in=ee expected=ee
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[250000] Generated: addr=c783 data_in=f expected=f
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: test.sv<sls!&*()_+>line: 28<sls!&*()_+>time: 250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 7d
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=a13c expected=7d actual=7d
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = a6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=78f7 expected=a6 actual=a6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 7d
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=a215 expected=7d actual=7d
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 1c4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=ccaa expected=1c4 actual=1c4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 1f1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=4a88 expected=1f1 actual=1f1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 11a
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=db8c expected=11a actual=11a
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = f0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=7ba2 expected=f0 actual=f0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 1f4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=cc12 expected=1f4 actual=1f4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 101
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=8088 expected=101 actual=101
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 14f
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=5ad9 expected=14f actual=14f
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 143
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=5359 expected=143 actual=143
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 1ea
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=e6fd expected=1ea actual=1ea
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 197
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=c4e1 expected=197 actual=197
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 149
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=1499 expected=149 actual=149
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 1ce
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=631a expected=1ce actual=1ce
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 17
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=1a5 expected=17 actual=17
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 10e
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=7a96 expected=10e actual=10e
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = 88
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=f262 expected=88 actual=88
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = ee
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=4a26 expected=ee actual=ee
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] data_out = f
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 20<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] PASS : addr=c783 expected=f actual=f
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 34<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+[14250000] Total errors = 0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: mem_pkg.sv<sls!&*()_+>line: 24<sls!&*()_+>time: 14250000 ps<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+$finish called from file "test.sv", line 99.
+$finish at simulation time             14350000
+Simulation complete, time is 14350000 ps.
+test.sv, 99 :     $finish;
+
+ucli% synEnv::hasFataled
+0
+ucli% ucliCore::getToolPID
+31013
+ucli% save::getUserdefinedProcs
+::stateVerdiChangeCB ::LoadFSDBDumpCmd
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpflush 
+*Verdi* : Flush all FSDB Files at 14,350,000 ps.
+
+ucli% senv
+activeDomain: TB
+activeFile: test.sv
+activeFrame: 0
+activeLine: 99
+activeScope: top.tb
+activeThread: 9
+endCol: 0
+file: test.sv
+frame: 0
+fsdbFilename: 
+hasTB: 1
+inputFilename: 
+keyFilename: ucli.key
+line: 99
+logFilename: /home/st62/HW4/verdiLog/sim.log
+macroIndex: -1
+macroOffset: -1
+pid: 31013
+scope: top.tb
+startCol: 0
+state: stopped
+thread: 9
+time: 14350000
+timePrecision: 1 ps
+vcdFilename: 
+vpdFilename:
+ucli% synUtils::resolveSourceFilename test.sv
+test.sv
+ucli% puts $::ucliCore::cbug_active
+0
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% checkpoint -list -all
+There are no checkpoints present.
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% stop
+No stop points are set
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% finish; quit
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 14350000 ps
+CPU Time:      0.200 seconds;       Data structure size:   0.0Mb
+Sat May  2 15:28:27 2026
+
+<VERDI_Terminated>
+
